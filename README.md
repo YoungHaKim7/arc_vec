@@ -30,3 +30,52 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 ```
 
 
+# `Arc` Vector의 용량이 저렴해 최적화에 유리한 가능성이 보인다. 잘 만들어보자.
+
+```rs
+
+use std::sync::Arc;
+
+fn main() {
+    let my_vec: Vec<i32> = vec![];
+    let my_vec_capacity = vec![1, 2, 3, 4, 5];
+    println!("vec : capacity");
+    println!(
+        "vec : empty capacity : {} bytes",
+        std::mem::size_of_val(&my_vec)
+    );
+    println!(
+        "vec [1, 2, 3, 4, 5] : capacity : {} bytes",
+        std::mem::size_of_val(&my_vec_capacity)
+    );
+    let mut my_vec_new_capacity = Vec::new();
+    my_vec_new_capacity.push(99);
+    println!(
+        "vec [99] : capacity : {} bytes",
+        std::mem::size_of_val(&my_vec_new_capacity)
+    );
+
+    println!();
+    println!("Arc Vector~~~~");
+
+    let arc_vec = Arc::new([1, 2, 3]);
+    println!(
+        "Arc [1, 2, 3, 4, 5] : capacity : {} bytes",
+        std::mem::size_of_val(&arc_vec)
+    );
+}
+```
+
+- Result
+
+```bash
+vec : capacity
+vec : empty capacity : 24 bytes
+vec [1, 2, 3, 4, 5] : capacity : 24 bytes
+vec [99] : capacity : 24 bytes
+
+Arc Vector~~~~
+Arc [1, 2, 3, 4, 5] : capacity : 8 bytes
+```
+
+
