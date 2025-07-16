@@ -15,8 +15,14 @@ impl ArcVeci32 {
     }
 
     fn push(&self, val: i32) -> Self {
-        Self {
-            data: Arc::new([val]),
+        if arc_check_init(&self.data) {
+            Self {
+                data: Arc::new([val]),
+            }
+        } else {
+            Self {
+                data: Arc::clone(&self.data),
+            }
         }
     }
 }
