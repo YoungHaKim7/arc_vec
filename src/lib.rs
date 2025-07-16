@@ -5,19 +5,26 @@ use std::{
 
 #[derive(Debug, Clone)]
 struct ArcVeci32 {
-    data: Arc<Mutex<Vec<i32>>>,
+    data: Arc<Mutex<Box<[i32]>>>,
 }
 
 impl ArcVeci32 {
     fn new() -> Self {
         Self {
-            data: Arc::new(Mutex::new(Vec::new())),
+            data: Arc::new(Mutex::new(Box::new([]))),
         }
     }
 
     fn push(&self, val: i32) {
         let mut guard = self.data.lock().unwrap();
-        guard.push(val);
+
+        let old_len = guard.len();
+        let mut new_data = Vec::with_capacity(old_len + 1);
+
+        new_data.extend_from_slice(&guard);
+        new_data.push(val);
+
+        *guard = new_data.into_boxed_slice();
     }
 }
 
