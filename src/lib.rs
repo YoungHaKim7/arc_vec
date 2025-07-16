@@ -1,46 +1,81 @@
 use std::{
+    alloc::{Layout, alloc},
     fmt::{self, Display},
+    mem::MaybeUninit,
     sync::{Arc, Mutex},
 };
 
 #[derive(Debug, Clone)]
 struct ArcVeci32 {
-    data: Arc<Mutex<Box<[i32]>>>,
+    data: Arc<Mutex<RawArcVec>>,
+}
+
+#[derive(Debug)]
+struct RawArcVec {
+    buf: Box<[MaybeUninit<i32>]>,
+    len: usize,
+    capacity: usize,
 }
 
 impl ArcVeci32 {
-    fn new() -> Self {
-        Self {
-            data: Arc::new(Mutex::new(Box::new([]))),
+    pub fn with_capacity(cap: usize) -> Self {
+        assert!(cap > 0, "capacity must be > 0");
+
+        // Allocate uninitialized memory for the array
+        let mut vec: Vec<MaybeUninit<i32>> = Vec::new();
+
+        unsafe {
+            let layout = Layout::array::<MaybeUninit<i32>>(cap).unwrap();
+            let ptr = alloc(layout) as *mut MaybeUninit<i32>;
+
+            // Build a slice from the raw pointer
+            let slice = std::slice::from_raw_parts_mut(ptr, cap);
+
+            // Take ownership of the allocation
+            let buf = Box::from_raw(slice);
+
+            Self {
+                data: Arc::new(Mutex::new(RawArcVec {
+                    buf,
+                    len: 0,
+                    capacity: cap,
+                })),
+            }
         }
     }
 
-    fn push(&self, val: i32) {
-        let mut guard = self.data.lock().unwrap();
+    pub fn push(&self, val: i32) {
+        let mut raw = self.data.lock().unwrap();
 
-        let old_len = guard.len();
-        let mut new_data = Vec::with_capacity(old_len + 1);
-
-        new_data.extend_from_slice(&guard);
-        new_data.push(val);
-
-        *guard = new_data.into_boxed_slice();
+        if raw.len < raw.capacity {
+            let idx = raw.len;
+            raw.buf[idx].write(val);
+            raw.len += 1;
+        } else {
+            println!("Cannot push: capacity reached.");
+        }
     }
-}
 
-impl Default for ArcVeci32 {
-    fn default() -> Self {
-        Self::new()
-    }
+    // pub fn push(&self, val: i32) {
+    //     let mut raw = self.data.lock().unwrap();
+    //     if raw.len < raw.capacity {
+    //         raw.buf[raw.len].write(val);
+    //         raw.len += 1;
+    //     } else {
+    //         println!("Cannot push: capacity reached.");
+    //     }
+    // }
 }
 
 impl Display for ArcVeci32 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let guard = self.data.lock().unwrap();
+        let raw = self.data.lock().unwrap();
         write!(f, "(")?;
-        for (i, val) in guard.iter().enumerate() {
-            write!(f, "{}", val)?;
-            if i + 1 < guard.len() {
+        for i in 0..raw.len {
+            unsafe {
+                write!(f, "{}", raw.buf[i].assume_init_ref())?;
+            }
+            if i + 1 < raw.len {
                 write!(f, ", ")?;
             }
         }
@@ -53,21 +88,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn arc_push_push() {
-        let my_num = ArcVeci32::new();
-        my_num.push(42);
-        my_num.push(24);
-        println!("arc Vec push push : {}", my_num);
-        // Expected Output: (42, 24)
-    }
-
-    #[test]
-    fn arc_push_3x() {
-        let my_num = ArcVeci32::new();
-        my_num.push(42);
-        my_num.push(24);
-        my_num.push(99);
-        println!("arc Vec push push : {}", my_num);
-        // Expected Output: (42, 24, 99)
+    fn test_with_capacity() {
+        let my_num = ArcVeci32::with_capacity(4);
+        my_num.push(1);
+        my_num.push(2);
+        my_num.push(3);
+        println!("with capacity : {}", my_num);
+        assert_eq!(format!("{}", my_num), "(1, 2, 3)");
     }
 }
