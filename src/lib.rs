@@ -95,5 +95,13 @@ mod tests {
         my_num.push(3);
         println!("with capacity : {}", my_num);
         assert_eq!(format!("{}", my_num), "(1, 2, 3)");
+        println!("my_num  val: with capacity : {}", size_of_val(&my_num));
+    }
+
+    #[test]
+    fn arc_vec_size_of_val() {
+        let arc_vec = Arc::new([3]);
+
+        println!("arc_vec  val: with capacity : {}", size_of_val(&arc_vec));
     }
 }
