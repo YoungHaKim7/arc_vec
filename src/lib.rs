@@ -1,7 +1,6 @@
 use std::{
-    alloc::{alloc, Layout},
-    fmt::{self, Display, Debug},
-    mem::{MaybeUninit, size_of_val},
+    fmt::{self, Debug, Display},
+    mem::MaybeUninit,
     sync::{Arc, Mutex},
 };
 
