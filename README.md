@@ -218,3 +218,7 @@ help: ...and then using that local here
 For more information about this error, try `rustc --explain E0502`.
 warning: `arc_vec` (lib) generated 1 warning
 ```
+
+# Union MaybeUninit
+- 1.36.0 · Source
+  - https://doc.rust-lang.org/stable/std/mem/union.MaybeUninit.html
