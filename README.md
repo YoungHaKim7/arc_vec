@@ -12,13 +12,56 @@ Arc<[T]>
 
 # Result
 
+- `cargo nextest run --nocapture`
 ```bash
+────────────
+ Nextest run ID 76bc7f32-ae13-47f6-9c9a-77588d16236a with nextest profile: default
+    Starting 2 tests across 1 binary
+       START             arc_vec tests::arc_vec_new_default_test
+
+running 1 test
+Capacity doubled to 2
+Capacity doubled to 4
+my_num_init : (10, 9, 8) (new fn test)
+Capacity doubled to 2
+Capacity doubled to 4
+my_num_init(default fn test) : (10, 9, 8)
+test tests::arc_vec_new_default_test ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+        PASS [   0.010s] arc_vec tests::arc_vec_new_default_test
+       START             arc_vec tests::test_with_capacity_and_grow
+
+running 1 test
+Capacity doubled to 4
+Capacity doubled to 8
+with growth: (1, 2, 3, 4, 5)
+test tests::test_with_capacity_and_grow ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+        PASS [   0.010s] arc_vec tests::test_with_capacity_and_grow
+────────────
+     Summary [   0.020s] 2 tests run: 2 passed, 0 skipped
+```
+
+- `cargo t -- --nocapture`
+
+```bash
+
 running 2 tests
-arc_vec  val: with capacity : 8
-with capacity : (1, 2, 3)
-my_num  val: with capacity : 8
-test tests::arc_vec_size_of_val ... ok
-test tests::test_with_capacity ... ok
+Capacity doubled to 4
+Capacity doubled to 8
+Capacity doubled to 2
+Capacity doubled to 4
+my_num_init : (10, 9, 8) (new fn test)
+Capacity doubled to 2
+Capacity doubled to 4
+my_num_init(default fn test) : (10, 9, 8)
+with growth: (1, 2, 3, 4, 5)
+test tests::test_with_capacity_and_grow ... ok
+test tests::arc_vec_new_default_test ... ok
 
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
@@ -27,6 +70,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
 ```
 
 
