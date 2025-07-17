@@ -44,35 +44,6 @@ impl<T> ArcVec<T> {
         }
     }
 
-    // pub fn push(&self, val: T) {
-    //     let mut raw = self.data.lock().unwrap();
-
-    //     if raw.len == raw.capacity {
-    //         // Double the capacity using shift operator
-    //         let new_capacity = raw.capacity << 1;
-
-    //         let mut new_buf: Vec<MaybeUninit<T>> = Vec::with_capacity(new_capacity);
-    //         // Pre-fill with uninit
-    //         new_buf.resize_with(new_capacity, MaybeUninit::uninit);
-
-    //         // Move initialized items
-    //         for i in 0..raw.len {
-    //             unsafe {
-    //                 let src = raw.buf[i].as_ptr();
-    //                 let dst = new_buf[i].as_mut_ptr();
-    //                 ptr::copy_nonoverlapping(src, dst, 1);
-    //             }
-    //         }
-
-    //         raw.buf = new_buf.into_boxed_slice();
-    //         raw.capacity = new_capacity;
-    //         println!("Capacity doubled to {}", new_capacity);
-    //     }
-
-    //     raw.buf[raw.len].write(val);
-    //     raw.len += 1;
-    // }
-
     pub fn push(&self, val: T) {
         let mut raw = self.data.lock().unwrap();
 

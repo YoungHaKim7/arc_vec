@@ -81,3 +81,96 @@ Arc [1, 2, 3, 4, 5] : capacity : 8 bytes
 
 # Arc 소유권이해
 - https://github.com/YoungHaKim7/arc_vec/commit/1f1e54895d8ed76a49c8fb35a83cd26cef6f4697
+
+- 해결책
+
+```rs
+pub fn push(&self, val: T) {
+    let mut raw = self.data.lock().unwrap();
+
+    if raw.len == raw.capacity {
+        let new_capacity = raw.capacity << 1;
+        let mut new_buf: Vec<MaybeUninit<T>> = Vec::with_capacity(new_capacity);
+        new_buf.resize_with(new_capacity, MaybeUninit::uninit);
+
+        for i in 0..raw.len {
+            unsafe {
+                let src = raw.buf[i].as_ptr();
+                let dst = new_buf[i].as_mut_ptr();
+                std::ptr::copy_nonoverlapping(src, dst, 1);
+            }
+        }
+
+        raw.buf = new_buf.into_boxed_slice();
+        raw.capacity = new_capacity;
+        println!("Capacity doubled to {}", new_capacity);
+    }
+
+    let idx = raw.len;
+    raw.buf[idx].write(val);
+    raw.len += 1;
+}
+```
+
+
+<hr />
+
+- 문제의 코드
+
+```rs
+pub fn push(&self, val: T) {
+    let mut raw = self.data.lock().unwrap();
+
+    if raw.len == raw.capacity {
+        // Double the capacity using shift operator
+        let new_capacity = raw.capacity << 1;
+
+        let mut new_buf: Vec<MaybeUninit<T>> = Vec::with_capacity(new_capacity);
+        // Pre-fill with uninit
+        new_buf.resize_with(new_capacity, MaybeUninit::uninit);
+
+        // Move initialized items
+        for i in 0..raw.len {
+            unsafe {
+                let src = raw.buf[i].as_ptr();
+                let dst = new_buf[i].as_mut_ptr();
+                ptr::copy_nonoverlapping(src, dst, 1);
+            }
+        }
+
+        raw.buf = new_buf.into_boxed_slice();
+        raw.capacity = new_capacity;
+        println!("Capacity doubled to {}", new_capacity);
+    }
+
+    raw.buf[raw.len].write(val);
+    raw.len += 1;
+}
+
+```
+
+```bash
+error[E0502]: cannot borrow `raw` as immutable because it is also borrowed as mutable
+   --> src/lib.rs:187:17
+    |
+187 |         raw.buf[raw.len].write(val);
+    |         --------^^^-----
+    |         |       |
+    |         |       immutable borrow occurs here
+    |         mutable borrow occurs here
+    |         mutable borrow later used here
+    |
+help: try adding a local storing this...
+   --> src/lib.rs:187:17
+    |
+187 |         raw.buf[raw.len].write(val);
+    |                 ^^^^^^^
+help: ...and then using that local here
+   --> src/lib.rs:187:9
+    |
+187 |         raw.buf[raw.len].write(val);
+    |         ^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0502`.
+warning: `arc_vec` (lib) generated 1 warning
+```
