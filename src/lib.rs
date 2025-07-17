@@ -16,11 +16,20 @@ struct RawArcVec<T> {
     capacity: usize,
 }
 
+impl<T> Default for ArcVec<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<T> ArcVec<T> {
+    pub fn new() -> Self {
+        Self::with_capacity(1)
+    }
+
     pub fn with_capacity(cap: usize) -> Self {
         assert!(cap > 0, "capacity must be > 0");
 
-        // Safely create uninitialized buffer
         let buf: Box<[MaybeUninit<T>]> = (0..cap)
             .map(|_| MaybeUninit::uninit())
             .collect::<Vec<_>>()
@@ -35,16 +44,59 @@ impl<T> ArcVec<T> {
         }
     }
 
+    // pub fn push(&self, val: T) {
+    //     let mut raw = self.data.lock().unwrap();
+
+    //     if raw.len == raw.capacity {
+    //         // Double the capacity using shift operator
+    //         let new_capacity = raw.capacity << 1;
+
+    //         let mut new_buf: Vec<MaybeUninit<T>> = Vec::with_capacity(new_capacity);
+    //         // Pre-fill with uninit
+    //         new_buf.resize_with(new_capacity, MaybeUninit::uninit);
+
+    //         // Move initialized items
+    //         for i in 0..raw.len {
+    //             unsafe {
+    //                 let src = raw.buf[i].as_ptr();
+    //                 let dst = new_buf[i].as_mut_ptr();
+    //                 ptr::copy_nonoverlapping(src, dst, 1);
+    //             }
+    //         }
+
+    //         raw.buf = new_buf.into_boxed_slice();
+    //         raw.capacity = new_capacity;
+    //         println!("Capacity doubled to {}", new_capacity);
+    //     }
+
+    //     raw.buf[raw.len].write(val);
+    //     raw.len += 1;
+    // }
+
     pub fn push(&self, val: T) {
         let mut raw = self.data.lock().unwrap();
 
-        if raw.len < raw.capacity {
-            let idx = raw.len;
-            raw.buf[idx].write(val);
-            raw.len += 1;
-        } else {
-            println!("Cannot push: capacity reached.");
+        if raw.len == raw.capacity {
+            let new_capacity = raw.capacity << 1;
+            let mut new_buf: Vec<MaybeUninit<T>> = Vec::with_capacity(new_capacity);
+            new_buf.resize_with(new_capacity, MaybeUninit::uninit);
+
+            for i in 0..raw.len {
+                unsafe {
+                    let src = raw.buf[i].as_ptr();
+                    let dst = new_buf[i].as_mut_ptr();
+                    std::ptr::copy_nonoverlapping(src, dst, 1);
+                }
+            }
+
+            raw.buf = new_buf.into_boxed_slice();
+            raw.capacity = new_capacity;
+            println!("Capacity doubled to {}", new_capacity);
         }
+
+        let idx = raw.len;
+        raw.buf[idx].write(val);
+        raw.len += 1;
     }
 }
 
@@ -69,21 +121,27 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_with_capacity() {
-        let my_num = ArcVec::with_capacity(4);
-        my_num.push(1);
-        my_num.push(2);
-        my_num.push(3);
-        println!("with capacity: {}", my_num);
-        assert_eq!(format!("{}", my_num), "(1, 2, 3)");
-        println!("my_num size: {}", size_of_val(&my_num));
+    fn test_with_capacity_and_grow() {
+        let my_num = ArcVec::with_capacity(2);
+        for i in 1..=5 {
+            my_num.push(i);
+        }
+        println!("with growth: {}", my_num);
+        assert_eq!(format!("{}", my_num), "(1, 2, 3, 4, 5)");
     }
 
     #[test]
-    fn arc_vec_with_string() {
-        let my_strs = ArcVec::with_capacity(3);
-        my_strs.push("hello".to_string());
-        my_strs.push("world".to_string());
-        println!("my_strs: {}", my_strs);
+    fn arc_vec_new_default_test() {
+        let my_num_init: ArcVec<i32> = ArcVec::new();
+        my_num_init.push(10);
+        my_num_init.push(9);
+        my_num_init.push(8);
+        println!("my_num_init : {} (new fn test)", my_num_init);
+
+        let my_num_init_new: ArcVec<i32> = ArcVec::default();
+        my_num_init_new.push(10);
+        my_num_init_new.push(9);
+        my_num_init_new.push(8);
+        println!("my_num_init(default fn test) : {}", my_num_init_new);
     }
 }
