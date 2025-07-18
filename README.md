@@ -282,3 +282,6 @@ warning: `arc_vec` (lib) generated 1 warning
 
 - ToString이해
   - https://doc.rust-lang.org/src/alloc/string.rs.html#2728-2804
+
+- fn.copy_nonoverlapping
+  - https://doc.rust-lang.org/stable/std/ptr/fn.copy_nonoverlapping.html
