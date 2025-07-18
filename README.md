@@ -13,7 +13,36 @@ Arc<[T]>
 # Result
 
 - `cargo nextest run --nocapture`
+
 ```bash
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.85s
+    Starting 5 tests across 1 binary
+       START             arc_vec tests::arc_vec_macro_test_int
+
+running 1 test
+Capacity doubled to 2
+Capacity doubled to 4
+my_num_init : (10, 10, 9, 8) (new fn test)
+Capacity doubled to 6
+my_num_init(default fn test) : (1, 2, 3, 10, 9, 8)
+test tests::arc_vec_macro_test_int ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+        PASS [   0.631s] arc_vec tests::arc_vec_macro_test_int
+       START             arc_vec tests::arc_vec_macro_test_string
+
+running 1 test
+Capacity doubled to 2
+Capacity doubled to 4
+my_string_init : (hello, world, test) (string fn test)
+test tests::arc_vec_macro_test_string ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+        PASS [   0.683s] arc_vec tests::arc_vec_macro_test_string
+       START             arc_vec tests::arc_vec_new_default_test
+
 running 1 test
 Capacity doubled to 2
 Capacity doubled to 4
@@ -23,7 +52,7 @@ Capacity doubled to 4
 my_num_init(default fn test) : (10, 9, 8)
 test tests::arc_vec_new_default_test ... ok
 
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
 
         PASS [   0.686s] arc_vec tests::arc_vec_new_default_test
        START             arc_vec tests::arc_vec_new_string_test
@@ -34,9 +63,9 @@ Capacity doubled to 4
 my_string_init : (hello, world, test) (string fn test)
 test tests::arc_vec_new_string_test ... ok
 
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
 
-        PASS [   0.631s] arc_vec tests::arc_vec_new_string_test
+        PASS [   0.692s] arc_vec tests::arc_vec_new_string_test
        START             arc_vec tests::test_with_capacity_and_grow
 
 running 1 test
@@ -45,34 +74,46 @@ Capacity doubled to 8
 with growth: (1, 2, 3, 4, 5)
 test tests::test_with_capacity_and_grow ... ok
 
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
 
-        PASS [   0.739s] arc_vec tests::test_with_capacity_and_grow
+        PASS [   0.683s] arc_vec tests::test_with_capacity_and_grow
 ------------
-     Summary [   2.057s] 3 tests run: 3 passed, 0 skipped
+     Summary [   3.375s] 5 tests run: 5 passed, 0 skipped
+
 ```
 
 - `cargo t -- --nocapture`
 
 ```bash
-running 3 tests
+
+running 5 tests
+Capacity doubled to 2
+Capacity doubled to 4
+my_num_init : (10, 10, 9, 8) (new fn test)
+Capacity doubled to 6
+my_num_init(default fn test) : (1, 2, 3, 10, 9, 8)
+Capacity doubled to 4
+Capacity doubled to 8
+with growth: (1, 2, 3, 4, 5)
+Capacity doubled to 2
+Capacity doubled to 4
+my_string_init : (hello, world, test) (string fn test)
+Capacity doubled to 2
+test tests::arc_vec_macro_test_int ... Capacity doubled to 4
+my_string_init : (hello, world, test) (string fn test)
 Capacity doubled to 2
 Capacity doubled to 4
 my_num_init : (10, 9, 8) (new fn test)
 Capacity doubled to 2
 Capacity doubled to 4
 my_num_init(default fn test) : (10, 9, 8)
-Capacity doubled to 4
-Capacity doubled to 8
-with growth: (1, 2, 3, 4, 5)
-Capacity doubled to 2
-test tests::arc_vec_new_default_test ... Capacity doubled to 4
-my_string_init : (hello, world, test) (string fn test)
 ok
 test tests::test_with_capacity_and_grow ... ok
+test tests::arc_vec_macro_test_string ... ok
 test tests::arc_vec_new_string_test ... ok
+test tests::arc_vec_new_default_test ... ok
 
-test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
    Doc-tests arc_vec
 
@@ -234,3 +275,7 @@ warning: `arc_vec` (lib) generated 1 warning
 
 # vector보면서 더 깊이 들어가기
 - https://doc.rust-lang.org/stable/std/vec/struct.Vec.html
+- vec macro
+  - https://github.com/rust-lang/rust/blob/master/library/alloc/src/macros.rs
+- raw_vec
+  - https://github.com/rust-lang/rust/blob/master/library/alloc/src/raw_vec/mod.rs

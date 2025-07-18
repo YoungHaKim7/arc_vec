@@ -19,3 +19,9 @@ macro_rules! arc_vec {
         arc_vec
     }};
 }
+
+#[macro_export]
+macro_rules! count_exprs {
+    () => { 0 };
+    ($head:expr $(, $tail:expr)*) => { 1 + $crate::count_exprs!($($tail),*) };
+}

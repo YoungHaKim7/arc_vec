@@ -173,7 +173,7 @@ mod tests {
         my_num_init.push(8);
         println!("my_num_init : {} (new fn test)", my_num_init);
 
-        let my_num_init_new: ArcVec<i32> = arc_vec!();
+        let my_num_init_new: ArcVec<i32> = arc_vec!(1, 2, 3);
         my_num_init_new.push(10);
         my_num_init_new.push(9);
         my_num_init_new.push(8);
