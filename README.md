@@ -279,3 +279,6 @@ warning: `arc_vec` (lib) generated 1 warning
   - https://github.com/rust-lang/rust/blob/master/library/alloc/src/macros.rs
 - raw_vec
   - https://github.com/rust-lang/rust/blob/master/library/alloc/src/raw_vec/mod.rs
+
+- ToString이해
+  - https://doc.rust-lang.org/src/alloc/string.rs.html#2728-2804
