@@ -69,6 +69,35 @@ impl<T> ArcVec<T> {
         raw.buf[idx].write(val);
         raw.len += 1;
     }
+
+    pub fn push_str(&self, val: T)
+    where
+        T: ToString,
+    {
+        let mut raw = self.data.lock().unwrap();
+
+        if raw.len == raw.capacity {
+            let new_capacity = raw.capacity << 1;
+            let mut new_buf: Vec<MaybeUninit<T>> = Vec::with_capacity(new_capacity);
+            new_buf.resize_with(new_capacity, MaybeUninit::uninit);
+
+            for i in 0..raw.len {
+                unsafe {
+                    let src = raw.buf[i].as_ptr();
+                    let dst = new_buf[i].as_mut_ptr();
+                    std::ptr::copy_nonoverlapping(src, dst, 1);
+                }
+            }
+
+            raw.buf = new_buf.into_boxed_slice();
+            raw.capacity = new_capacity;
+            println!("Capacity doubled to {}", new_capacity);
+        }
+
+        let idx = raw.len;
+        raw.buf[idx].write(val);
+        raw.len += 1;
+    }
 }
 
 impl<T: Display> Display for ArcVec<T> {
@@ -114,5 +143,14 @@ mod tests {
         my_num_init_new.push(9);
         my_num_init_new.push(8);
         println!("my_num_init(default fn test) : {}", my_num_init_new);
+    }
+
+    #[test]
+    fn arc_vec_new_string_test() {
+        let my_num_init: ArcVec<String> = ArcVec::new();
+        my_num_init.push_str("hello".to_string());
+        my_num_init.push_str("world".to_string());
+        my_num_init.push_str("test".to_string());
+        println!("my_string_init : {} (string fn test)", my_num_init);
     }
 }

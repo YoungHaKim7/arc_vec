@@ -14,11 +14,6 @@ Arc<[T]>
 
 - `cargo nextest run --nocapture`
 ```bash
-────────────
- Nextest run ID 76bc7f32-ae13-47f6-9c9a-77588d16236a with nextest profile: default
-    Starting 2 tests across 1 binary
-       START             arc_vec tests::arc_vec_new_default_test
-
 running 1 test
 Capacity doubled to 2
 Capacity doubled to 4
@@ -28,9 +23,20 @@ Capacity doubled to 4
 my_num_init(default fn test) : (10, 9, 8)
 test tests::arc_vec_new_default_test ... ok
 
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
 
-        PASS [   0.010s] arc_vec tests::arc_vec_new_default_test
+        PASS [   0.686s] arc_vec tests::arc_vec_new_default_test
+       START             arc_vec tests::arc_vec_new_string_test
+
+running 1 test
+Capacity doubled to 2
+Capacity doubled to 4
+my_string_init : (hello, world, test) (string fn test)
+test tests::arc_vec_new_string_test ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+
+        PASS [   0.631s] arc_vec tests::arc_vec_new_string_test
        START             arc_vec tests::test_with_capacity_and_grow
 
 running 1 test
@@ -39,31 +45,34 @@ Capacity doubled to 8
 with growth: (1, 2, 3, 4, 5)
 test tests::test_with_capacity_and_grow ... ok
 
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
 
-        PASS [   0.010s] arc_vec tests::test_with_capacity_and_grow
-────────────
-     Summary [   0.020s] 2 tests run: 2 passed, 0 skipped
+        PASS [   0.739s] arc_vec tests::test_with_capacity_and_grow
+------------
+     Summary [   2.057s] 3 tests run: 3 passed, 0 skipped
 ```
 
 - `cargo t -- --nocapture`
 
 ```bash
-
-running 2 tests
-Capacity doubled to 4
-Capacity doubled to 8
+running 3 tests
 Capacity doubled to 2
 Capacity doubled to 4
 my_num_init : (10, 9, 8) (new fn test)
 Capacity doubled to 2
 Capacity doubled to 4
 my_num_init(default fn test) : (10, 9, 8)
+Capacity doubled to 4
+Capacity doubled to 8
 with growth: (1, 2, 3, 4, 5)
+Capacity doubled to 2
+test tests::arc_vec_new_default_test ... Capacity doubled to 4
+my_string_init : (hello, world, test) (string fn test)
+ok
 test tests::test_with_capacity_and_grow ... ok
-test tests::arc_vec_new_default_test ... ok
+test tests::arc_vec_new_string_test ... ok
 
-test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
    Doc-tests arc_vec
 
