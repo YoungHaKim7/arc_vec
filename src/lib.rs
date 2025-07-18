@@ -4,6 +4,8 @@ use std::{
     sync::{Arc, Mutex},
 };
 
+mod macro_rs;
+
 #[derive(Debug, Clone)]
 struct ArcVec<T> {
     data: Arc<Mutex<RawArcVec<T>>>,
@@ -152,5 +154,29 @@ mod tests {
         my_num_init.push_str("world".to_string());
         my_num_init.push_str("test".to_string());
         println!("my_string_init : {} (string fn test)", my_num_init);
+    }
+
+    #[test]
+    fn arc_vec_macro_test_string() {
+        let my_num_init: ArcVec<String> = arc_vec!();
+        my_num_init.push_str("hello".to_string());
+        my_num_init.push_str("world".to_string());
+        my_num_init.push_str("test".to_string());
+        println!("my_string_init : {} (string fn test)", my_num_init);
+    }
+
+    #[test]
+    fn arc_vec_macro_test_int() {
+        let my_num_init: ArcVec<i32> = arc_vec!(10);
+        my_num_init.push(10);
+        my_num_init.push(9);
+        my_num_init.push(8);
+        println!("my_num_init : {} (new fn test)", my_num_init);
+
+        let my_num_init_new: ArcVec<i32> = arc_vec!();
+        my_num_init_new.push(10);
+        my_num_init_new.push(9);
+        my_num_init_new.push(8);
+        println!("my_num_init(default fn test) : {}", my_num_init_new);
     }
 }
