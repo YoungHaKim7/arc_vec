@@ -174,6 +174,11 @@ Arc [1, 2, 3, 4, 5] : capacity : 8 bytes
 
 
 # Arc 소유권이해
+- https://doc.rust-lang.org/stable/std/sync/struct.Arc.html
+  
+
+# 러스트 소유권 자주하는 실수(문제점 & 해결책)
+
 - https://github.com/YoungHaKim7/arc_vec/commit/1f1e54895d8ed76a49c8fb35a83cd26cef6f4697
 
 - 해결책
