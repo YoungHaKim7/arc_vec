@@ -72,6 +72,18 @@ impl<T> ArcVec<T> {
         raw.len += 1;
     }
 
+    pub fn pop(&self) -> Option<T> {
+        let mut raw = self.data.lock().unwrap();
+
+        if raw.len == 0 {
+            None
+        } else {
+            raw.len -= 1;
+            let value = unsafe { raw.buf[raw.len].assume_init_read() };
+            Some(value)
+        }
+    }
+
     pub fn push_str(&self, val: T)
     where
         T: ToString,
@@ -133,6 +145,23 @@ mod tests {
     }
 
     #[test]
+    fn test_pop() {
+        let my_num = ArcVec::with_capacity(2);
+        my_num.push(1);
+        my_num.push(2);
+        my_num.push(3);
+
+        assert_eq!(format!("{}", my_num), "(1, 2, 3)");
+        assert_eq!(my_num.pop(), Some(3));
+        assert_eq!(format!("{}", my_num), "(1, 2)");
+        assert_eq!(my_num.pop(), Some(2));
+        assert_eq!(format!("{}", my_num), "(1)");
+        assert_eq!(my_num.pop(), Some(1));
+        assert_eq!(format!("{}", my_num), "()");
+        assert_eq!(my_num.pop(), None);
+    }
+
+    #[test]
     fn arc_vec_new_default_test() {
         let my_num_init: ArcVec<i32> = ArcVec::new();
         my_num_init.push(10);
@@ -180,3 +209,5 @@ mod tests {
         println!("my_num_init(default fn test) : {}", my_num_init_new);
     }
 }
+
+
