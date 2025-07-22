@@ -3,7 +3,17 @@
 </p>
 
 # arc_vec
-Arc Vector
+
+[![Crates.io][crates-badge]][crates-url]
+[![MIT licensed][mit-badge]][mit-url]
+
+[crates-badge]: https://img.shields.io/crates/v/arc_vec.svg
+[crates-url]: https://crates.io/crates/arc_vec
+[mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[mit-url]: https://github.com/tokio-rs/tokio/blob/master/LICENSE
+
+- Arc Vector
+  - Experimental work to run vectors in parallel
 
 
 ```rs
