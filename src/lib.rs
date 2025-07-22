@@ -5,7 +5,7 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-mod macro_rs;
+mod macros;
 
 #[derive(Debug, Clone)]
 struct ArcVec<T> {
@@ -106,7 +106,7 @@ impl<T> ArcVec<T> {
 
             raw.buf = new_buf.into_boxed_slice();
             raw.capacity = new_capacity;
-            println!("Capacity doubled to {}", new_capacity);
+            // println!("Capacity doubled to {}", new_capacity);
         }
 
         let idx = raw.len;
@@ -153,6 +153,12 @@ impl<T> ArcVec<T> {
             let value = unsafe { raw.buf[raw.len].assume_init_read() };
             Some(value)
         }
+    }
+
+    pub fn is_empty(&self) -> bool {
+        let raw = self.data.lock().unwrap();
+
+        if raw.len == 0 { true } else { false }
     }
 }
 
@@ -234,6 +240,7 @@ mod tests {
         my_num_init.push_str("world".to_string());
         my_num_init.push_str("test".to_string());
         println!("my_string_init : {} (string fn test)", my_num_init);
+        // (hello, world, test)
     }
 
     #[test]
@@ -242,13 +249,13 @@ mod tests {
         my_num_init.push(10);
         my_num_init.push(9);
         my_num_init.push(8);
-        println!("my_num_init : {} (new fn test)", my_num_init);
+        assert_eq!(format!("{}", my_num_init), "(10, 10, 9, 8)");
 
         let my_num_init_new: ArcVec<i32> = arc_vec!(1, 2, 3);
         my_num_init_new.push(10);
         my_num_init_new.push(9);
         my_num_init_new.push(8);
-        println!("my_num_init(default fn test) : {}", my_num_init_new);
+        assert_eq!(format!("{}", my_num_init_new), "(1, 2, 3, 10, 9, 8)");
     }
 
     #[test]
@@ -263,10 +270,8 @@ mod tests {
 
         vec1.append(&vec2);
 
-        println!("vec1 after append: {}", vec1); // (1, 2, 3, 4)
-        println!("vec2 after append: {}", vec2); // ()
-
         assert_eq!(format!("{}", vec1), "(1, 2, 3, 4)");
         assert_eq!(format!("{}", vec2), "()");
+        assert!(vec2.is_empty());
     }
 }
