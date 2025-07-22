@@ -19,7 +19,26 @@
   - Experimental work to run vectors in parallel
 
 
-```rs
+```rust
 // Consider Arc<[T]> over Vec <T>
 Arc<[T]>
 ```
+
+```toml
+[dependencies]
+arc_vec = "0"
+
+```
+
+
+## License
+
+This project is licensed under the [MIT license].
+
+[MIT license]: https://github.com/arc_vec/blob/master/LICENSE
+
+### Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in ArcVec by you, shall be licensed as MIT, without any additional
+terms or conditions.

@@ -2,13 +2,14 @@
 //! * I made the code after watching a [YouTube video.(230614_Use Arc Instead of Vec | Logan Smith)][youtube]
 //!
 //!
-//! ```rs
+//! ```
 //! // Consider Arc<[T]> over Vec <T>
 //! Arc<[T]>
 //! ```
 //!
 //! # example
-//! ```rs
+//!
+//! ```
 //! use arc_vec::alloc::arc_vec::ArcVec;
 //!
 //! fn main() {
