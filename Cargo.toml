@@ -2,5 +2,21 @@
 name = "arc_vec"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.88"
+authors = ["GYoung <ytok1108@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/YoungHaKim7/arc_vec"
+homepage = "https://docs.rs/arc_vec/latest/arc_vec/"
+description = """
+Expensive but experimental project created for parallel execution.
+"""
+categories = ["asynchronous", "parallelism"]
+keywords = ["arc", "futures"]
 
 [dependencies]
+
+
+[[example]]
+name = "hello_arc_vec"
+path = "examples/hello_arc_vec.rs"
