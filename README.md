@@ -57,6 +57,10 @@ fn main() {
 }
 ```
 
+# Todo
+
+- [ ] sort, reverse
+- [ ] append string
 
 ## License
 
