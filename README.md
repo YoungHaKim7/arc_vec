@@ -13,7 +13,7 @@
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [mit-url]: https://github.com/tokio-rs/tokio/blob/master/LICENSE
 [rust-doc-badge]: https://img.shields.io/badge/rust-documentation-blue
-[doc-url]: https://docs.rs/relm4/
+[doc-url]: https://docs.rs/arc_vec/latest/arc_vec/
 
 - Arc Vector
   - Experimental work to run vectors in parallel

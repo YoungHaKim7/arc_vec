@@ -11,7 +11,7 @@ homepage = "https://docs.rs/arc_vec/latest/arc_vec/"
 description = """
 Expensive but experimental project created for parallel execution.
 """
-categories = ["asynchronous", "parallelism"]
+categories = ["asynchronous"]
 keywords = ["arc", "futures"]
 
 [dependencies]
