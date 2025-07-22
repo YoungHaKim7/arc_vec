@@ -62,7 +62,7 @@ fn main() {
 
 This project is licensed under the [MIT license].
 
-[MIT license]: https://github.com/arc_vec/blob/master/LICENSE
+[MIT license]: https://github.com/YoungHaKim7/arc_vec/blob/main/LICENSE
 
 ### Contribution
 
