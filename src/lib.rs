@@ -17,6 +17,8 @@
 //!     println!("arc_vec int push : {}", my_arc_vec);
 //! }
 //! ```
+//! # Arc
+//! * <https://doc.rust-lang.org/stable/std/sync/struct.Arc.html>
 //!
 //! # documents referenced in the making
 //! * [Union MaybeUninit(rust ver. 1.36.0)][union_maybeuninit]
