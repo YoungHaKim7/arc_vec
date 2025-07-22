@@ -24,10 +24,37 @@
 Arc<[T]>
 ```
 
+# dependencies
+
 ```toml
 [dependencies]
 arc_vec = "0"
 
+```
+
+# example
+
+- `arcnew`
+
+```rust
+use arc_vec::alloc::arc_vec::ArcVec;
+
+fn main() {
+    let my_arc_vec = ArcVec::new();
+    my_arc_vec.push(10);
+    println!("arc_vec int push : {}", my_arc_vec);
+}
+```
+
+- macro
+
+```rust
+use arc_vec::arc_vec;
+
+fn main() {
+    let arc_test = arc_vec!(2);
+    println!("arc_vec : {}", arc_test);
+}
 ```
 
 
