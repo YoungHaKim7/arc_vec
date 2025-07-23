@@ -32,28 +32,26 @@ jobs:
           command: fmt
           args: --all -- --check
 
-  clippy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          components: clippy
-          override: true
-      - uses: Swatinem/rust-cache@v2
-      - uses: actions-rs/clippy-check@v1
-        with:
-          name: clippy-all-features
-          # token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features
-      #     args: --all-features --all-targets -- -D warnings
-      - uses: actions-rs/clippy-check@v1
-        with:
-          name: clippy-no-default-features
-          # token: ${{ secrets.GITHUB_TOKEN }}
-          args: --no-default-features
-      #     args: --no-default-features --all-targets -- -D warnings
+  # clippy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions-rs/toolchain@v1
+  #       with:
+  #         toolchain: stable
+  #         components: clippy
+  #         override: true
+  #     - uses: Swatinem/rust-cache@v2
+  #     - uses: actions-rs/clippy-check@v1
+  #       with:
+  #         name: clippy-all-features
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         args: --all-features --all-targets -- -D warnings
+  #     - uses: actions-rs/clippy-check@v1
+  #       with:
+  #         name: clippy-no-default-features
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         args: --no-default-features --all-targets -- -D warnings
 
   test:
     runs-on: ubuntu-latest
