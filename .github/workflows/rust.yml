@@ -11,31 +11,42 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: cargo build --verbose
-
-  test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
+
       - uses: Swatinem/rust-cache@v2
+
+      - name: Build
+        run: cargo build --verbose
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - uses: Swatinem/rust-cache@v2
+
       - name: Install cargo-nextest
-        run: curl -LsSf https://get.nexte.st/latest/linux | tar zxf - -C ${CARGO_HOME:-~/.cargo}/bin
-      - uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --all-features --no-fail-fast --no-run
-      - uses: actions-rs/cargo@v1
-        with:
-          command: nextest
-          args: run --all-features --no-fail-fast --workspace --no-capture
+        run: |
+          mkdir -p ${CARGO_HOME:-~/.cargo}/bin
+          curl -LsSf https://get.nexte.st/latest/linux | tar zxf - -C ${CARGO_HOME:-~/.cargo}/bin
+
+      - name: Precompile tests
+        run: cargo test --all-features --no-fail-fast --no-run
+
+      - name: Run tests with nextest
+        run: cargo nextest run --all-features --no-fail-fast --workspace --no-capture
