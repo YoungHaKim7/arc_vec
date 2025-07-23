@@ -21,6 +21,6 @@ fn main() {
     // println!("arc_vec : {}", arc_string_macro);
 
     // let arc_string2 = arc_vec!("good");
-    // arc_string_macro.append(&mut arc_string2);
+    // arc_string_macro.append(&arc_string2);
     // println!("arc_vec : {}", arc_string2);
 }
