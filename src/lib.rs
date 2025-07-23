@@ -4,7 +4,9 @@
 //!
 //! ```
 //! // Consider Arc<[T]> over Vec <T>
-//! Arc<[T]>
+//! // Arc<[T]>
+//! let my_num_arcvec_init: ArcVec<i32> = ArcVec::new();
+//!
 //! ```
 //!
 //! # example
