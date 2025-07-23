@@ -22,6 +22,7 @@
 ```rust
 // Consider Arc<[T]> over Vec <T>
 // Arc<[T]>
+use arc_vec::alloc::arc_vec::ArcVec;
 let my_num_arcvec_init: ArcVec<i32> = ArcVec::new();
 
 ```
