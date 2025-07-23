@@ -45,13 +45,13 @@ jobs:
       - uses: actions-rs/clippy-check@v1
         with:
           name: clippy-all-features
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features
       #     args: --all-features --all-targets -- -D warnings
       - uses: actions-rs/clippy-check@v1
         with:
           name: clippy-no-default-features
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # token: ${{ secrets.GITHUB_TOKEN }}
           args: --no-default-features
       #     args: --no-default-features --all-targets -- -D warnings
 
