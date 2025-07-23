@@ -32,10 +32,10 @@ jobs:
           command: fmt
           args: --all -- --check
 
-  # clippy:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
   #     - uses: actions-rs/toolchain@v1
   #       with:
   #         toolchain: stable
