@@ -7,6 +7,8 @@
 [![Crates.io][crates-badge]][crates-url]
 [![MIT licensed][mit-badge]][mit-url]
 [![Rust_Documentation][rust-doc-badge]][doc-url]
+![Rust Stable](https://img.shields.io/badge/rustc-stable-blue.svg)
+![Rust 1.88+](https://img.shields.io/badge/rustc-1.88+-blue.svg)
 
 [crates-badge]: https://img.shields.io/crates/v/arc_vec.svg
 [crates-url]: https://crates.io/crates/arc_vec
