@@ -61,7 +61,7 @@ fn main() {
 
 - [ ] sort, reverse
 - [ ] append string
-- benches
+- [ ] benches
   - [ ] arcvec vs Vec::new
 
 ## License
