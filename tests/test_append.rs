@@ -12,7 +12,7 @@ fn test_append() {
 
     vec1.append(&vec2);
 
-    assert_eq!(format!("{}", vec1), "(1, 2, 3, 4)");
-    assert_eq!(format!("{}", vec2), "()");
+    assert_eq!(format!("{vec1}"), "(1, 2, 3, 4)");
+    assert_eq!(format!("{vec2}"), "()");
     assert!(vec2.is_empty());
 }

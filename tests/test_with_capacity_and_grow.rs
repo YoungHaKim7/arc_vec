@@ -6,6 +6,6 @@ fn test_with_capacity_and_grow() {
     for i in 1..=5 {
         my_num.push(i);
     }
-    println!("with growth: {}", my_num);
-    assert_eq!(format!("{}", my_num), "(1, 2, 3, 4, 5)");
+    println!("with growth: {my_num}");
+    assert_eq!(format!("{my_num}"), "(1, 2, 3, 4, 5)");
 }

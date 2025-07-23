@@ -7,12 +7,12 @@ fn test_pop() {
     my_num.push(2);
     my_num.push(3);
 
-    assert_eq!(format!("{}", my_num), "(1, 2, 3)");
+    assert_eq!(format!("{my_num}"), "(1, 2, 3)");
     assert_eq!(my_num.pop(), Some(3));
-    assert_eq!(format!("{}", my_num), "(1, 2)");
+    assert_eq!(format!("{my_num}"), "(1, 2)");
     assert_eq!(my_num.pop(), Some(2));
-    assert_eq!(format!("{}", my_num), "(1)");
+    assert_eq!(format!("{my_num}"), "(1)");
     assert_eq!(my_num.pop(), Some(1));
-    assert_eq!(format!("{}", my_num), "()");
+    assert_eq!(format!("{my_num}"), "()");
     assert_eq!(my_num.pop(), None);
 }

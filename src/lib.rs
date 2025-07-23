@@ -18,7 +18,7 @@
 //!
 //! let my_arc_vec = ArcVec::new();
 //! my_arc_vec.push(10);
-//! println!("arc_vec int push : {}", my_arc_vec);
+//! println!("arc_vec int push : {my_arc_vec}");
 //! ```
 //! # Arc
 //! * <https://doc.rust-lang.org/stable/std/sync/struct.Arc.html>

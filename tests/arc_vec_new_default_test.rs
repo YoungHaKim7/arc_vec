@@ -6,11 +6,11 @@ fn arc_vec_new_default_test() {
     my_num_init.push(10);
     my_num_init.push(9);
     my_num_init.push(8);
-    println!("my_num_init : {} (new fn test)", my_num_init);
+    println!("my_num_init : {my_num_init} (new fn test)");
 
     let my_num_init_new: ArcVec<i32> = ArcVec::default();
     my_num_init_new.push(10);
     my_num_init_new.push(9);
     my_num_init_new.push(8);
-    println!("my_num_init(default fn test) : {}", my_num_init_new);
+    println!("my_num_init(default fn test) : {my_num_init_new}");
 }
