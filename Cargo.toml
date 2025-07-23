@@ -11,7 +11,7 @@ homepage = "https://docs.rs/arc_vec/latest/arc_vec/"
 description = """
 Expensive but experimental project created for parallel execution.
 """
-categories = ["asynchronous"]
+categories = ["asynchronous", "os::unix-apis"]
 keywords = ["arc", "futures"]
 
 [dependencies]
@@ -20,3 +20,6 @@ keywords = ["arc", "futures"]
 [[example]]
 name = "hello_arc_vec"
 path = "examples/hello_arc_vec.rs"
+
+[badges.maintenance]
+status = "deprecated" 
