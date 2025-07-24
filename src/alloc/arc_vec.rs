@@ -158,6 +158,46 @@ impl<T> ArcVec<T> {
 
         raw.len == 0
     }
+    pub fn sort_by<F>(&self, mut compare: F)
+    where
+        F: FnMut(&T, &T) -> std::cmp::Ordering,
+    {
+        let mut raw = self.data.lock().unwrap();
+
+        // Step 1: move items out into Vec<T>
+        let mut temp: Vec<T> = Vec::with_capacity(raw.len);
+        for i in 0..raw.len {
+            unsafe {
+                temp.push(raw.buf[i].assume_init_read());
+            }
+        }
+
+        // Step 2: sort temp Vec
+        temp.sort_by(&mut compare);
+
+        // Step 3: move sorted items back
+        for (i, val) in temp.into_iter().enumerate() {
+            raw.buf[i].write(val);
+        }
+    }
+    pub fn reverse(&self) {
+        let mut raw = self.data.lock().unwrap();
+        let len = raw.len;
+
+        for i in 0..len / 2 {
+            unsafe {
+                let a = raw.buf[i].as_mut_ptr();
+                let b = raw.buf[len - 1 - i].as_mut_ptr();
+                ptr::swap(a, b);
+            }
+        }
+    }
+}
+
+impl<T: Ord> ArcVec<T> {
+    pub fn sort(&self) {
+        self.sort_by(|a, b| a.cmp(b));
+    }
 }
 
 impl<T: Display> Display for ArcVec<T> {
