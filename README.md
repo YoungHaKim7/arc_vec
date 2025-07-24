@@ -62,6 +62,18 @@ fn main() {
 }
 ```
 
+# 성능 평가 benches
+
+```bash
+
+$ cargo r --example sort_comparison
+
+Array size: 1_000_000
+Standard sort took: 511.425875ms
+Parallel sort took: 2.315417ms
+
+```
+
 # Todo
 
 - [ ] sort, reverse
