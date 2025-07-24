@@ -18,14 +18,22 @@ keywords = ["arc", "futures"]
 [dependencies]
 rayon = "1.10.0"
 
+[dev-dependencies]
+criterion = "0.6.0"
+rand = "0.8.5"
 
 [[example]]
 name = "hello_arc_vec"
 path = "examples/hello_arc_vec.rs"
 
-[dev-dependencies]
-criterion = "0.6.0"
-rand = "0.8.5"
+[[example]]
+name = "arc_macro"
+path = "examples/arc_macro.rs"
+ 
+[[example]]
+name = "sort_comparison"
+path = "examples/sort_comparison.rs"
+
 
 # [badges.maintenance]
 # status = "deprecated" 
