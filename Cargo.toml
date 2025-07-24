@@ -16,11 +16,15 @@ categories = ["asynchronous", "os::unix-apis"]
 keywords = ["arc", "futures"]
 
 [dependencies]
+rayon = "1.10.0"
 
 
 [[example]]
 name = "hello_arc_vec"
 path = "examples/hello_arc_vec.rs"
+
+[dev-dependencies]
+criterion = "0.6.0"
 
 # [badges.maintenance]
 # status = "deprecated" 

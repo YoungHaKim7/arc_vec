@@ -49,3 +49,4 @@
 
 pub mod alloc;
 pub mod macros;
+pub mod sync;

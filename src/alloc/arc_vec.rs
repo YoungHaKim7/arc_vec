@@ -5,15 +5,17 @@ use std::{
     sync::{Arc, Mutex},
 };
 
+use rayon::prelude::ParallelSliceMut;
+
 #[derive(Debug, Clone)]
 pub struct ArcVec<T> {
-    data: Arc<Mutex<RawArcVec<T>>>,
+    pub data: Arc<Mutex<RawArcVec<T>>>,
 }
 
 #[derive(Debug)]
-struct RawArcVec<T> {
-    buf: Box<[MaybeUninit<T>]>,
-    len: usize,
+pub struct RawArcVec<T> {
+    pub buf: Box<[MaybeUninit<T>]>,
+    pub len: usize,
     capacity: usize,
 }
 
@@ -158,6 +160,7 @@ impl<T> ArcVec<T> {
 
         raw.len == 0
     }
+
     pub fn sort_by<F>(&self, mut compare: F)
     where
         F: FnMut(&T, &T) -> std::cmp::Ordering,
@@ -194,9 +197,16 @@ impl<T> ArcVec<T> {
     }
 }
 
-impl<T: Ord> ArcVec<T> {
+impl<T: Ord + Send + Sync> ArcVec<T> {
     pub fn sort(&self) {
         self.sort_by(|a, b| a.cmp(b));
+    }
+
+    pub fn parallel_sort(&self) {
+        let mut raw = self.data.lock().unwrap();
+        let slice =
+            unsafe { std::slice::from_raw_parts_mut(raw.buf.as_mut_ptr() as *mut T, raw.len) };
+        slice.par_sort();
     }
 }
 
