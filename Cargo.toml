@@ -7,7 +7,8 @@ authors = ["GYoung <ytok1108@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/YoungHaKim7/arc_vec"
-homepage = "https://docs.rs/arc_vec/latest/arc_vec/"
+documentation = "https://docs.rs/arc_vec/"
+# homepage = "https://docs.rs/arc_vec/latest/arc_vec/"
 description = """
 Expensive but experimental project created for parallel execution.
 """
@@ -21,5 +22,5 @@ keywords = ["arc", "futures"]
 name = "hello_arc_vec"
 path = "examples/hello_arc_vec.rs"
 
-[badges.maintenance]
-status = "deprecated" 
+# [badges.maintenance]
+# status = "deprecated" 
