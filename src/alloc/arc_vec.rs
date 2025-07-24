@@ -1,5 +1,6 @@
 use std::{
     fmt::{self, Display},
+    iter::FromIterator,
     mem::MaybeUninit,
     ptr,
     sync::{Arc, Mutex},
@@ -199,7 +200,13 @@ impl<T> ArcVec<T> {
 
 impl<T: Ord + Send + Sync> ArcVec<T> {
     pub fn sort(&self) {
-        self.sort_by(|a, b| a.cmp(b));
+        let mut raw = self.data.lock().unwrap();
+        if raw.len == 0 {
+            return;
+        }
+        let slice =
+            unsafe { std::slice::from_raw_parts_mut(raw.buf.as_mut_ptr() as *mut T, raw.len) };
+        slice.sort();
     }
 
     pub fn parallel_sort(&self) {
@@ -223,5 +230,15 @@ impl<T: Display> Display for ArcVec<T> {
             }
         }
         write!(f, ")")
+    }
+}
+
+impl<T> FromIterator<T> for ArcVec<T> {
+    fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
+        let arc_vec = ArcVec::new();
+        for item in iter {
+            arc_vec.push(item);
+        }
+        arc_vec
     }
 }

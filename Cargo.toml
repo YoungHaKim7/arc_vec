@@ -25,6 +25,7 @@ path = "examples/hello_arc_vec.rs"
 
 [dev-dependencies]
 criterion = "0.6.0"
+rand = "0.8.5"
 
 # [badges.maintenance]
 # status = "deprecated" 
