@@ -18,6 +18,7 @@ ws:
 
 # final review
 fi:
+    cargo fmt --all -- --check
     cargo nextest run --all-features --no-fail-fast --workspace --no-capture
     cargo check --all-features --all-targets --all
     cargo clippy --all-features --all-targets -- -D warnings
