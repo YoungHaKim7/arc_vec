@@ -112,7 +112,8 @@ Parallel sort took: 2.315417ms
 - [ ] sort, reverse
 - [ ] append string
 - [ ] benches
-  - [ ] arcvec vs Vec::new
+  - [ ] ArcVec VS Vec::new
+  - [x] Parallel sort VS Basic Sort
 
 ## License
 
