@@ -106,6 +106,33 @@ Parallel sort took: 2.315417ms
 
 ```
 
+# Test 환경
+- `rustc --version --verbose`
+```
+$ rustc --version --verbose
+rustc 1.88.0 (6b00bc388 2025-06-23)
+binary: rustc
+commit-hash: 6b00bc3880198600130e1cf62b8f8a93494488cc
+commit-date: 2025-06-23
+host: x86_64-unknown-linux-gnu
+release: 1.88.0
+LLVM version: 20.1.5
+
+```
+
+- [fastfetch](https://github.com/fastfetch-cli/fastfetch)
+
+```
+OS: Ubuntu 22.04.5 LTS x86_64
+Host: Windows Subsystem for Linux - Ubuntu
+Kernel: Linux 4.4.0-18362-Microsoft
+Shell: fish 3.7.1
+Terminal: xterm-256color
+CPU: Intel(R) Core(TM) i5-10500 (12) @ 3.10 GHz
+GPU: Mesa llvmpipe (LLVM 15.0.7, 256 bits)
+Memory: 6.99 GiB / 7.78 GiB (90%)
+```
+
 # Todo
 
 - [ ] sort, reverse
