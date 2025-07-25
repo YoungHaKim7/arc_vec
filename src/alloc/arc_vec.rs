@@ -6,7 +6,7 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use rayon::prelude::ParallelSliceMut;
+use rayon::prelude::*;
 
 #[derive(Debug, Clone)]
 pub struct ArcVec<T> {
@@ -214,6 +214,20 @@ impl<T: Ord + Send + Sync> ArcVec<T> {
         let slice =
             unsafe { std::slice::from_raw_parts_mut(raw.buf.as_mut_ptr() as *mut T, raw.len) };
         slice.par_sort();
+    }
+
+    pub fn parallel_reverse(&self) {
+        let mut raw = self.data.lock().unwrap();
+        let len = raw.len;
+        if len < 2 {
+            return;
+        }
+        let slice = unsafe { std::slice::from_raw_parts_mut(raw.buf.as_mut_ptr() as *mut T, len) };
+
+        let (left, right) = slice.split_at_mut(len / 2);
+        left.par_iter_mut()
+            .zip(right.par_iter_mut().rev())
+            .for_each(|(a, b)| std::mem::swap(a, b));
     }
 }
 

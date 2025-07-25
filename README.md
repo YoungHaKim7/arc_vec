@@ -139,8 +139,7 @@ Memory: 6.93 GiB / 94.09 GiB
 
 # Todo
 
-- [x] sort fn
-- [ ] reverse fn
+- [x] sort fn , reverse fn
 - [ ] append string
 - [ ] benches
   - [ ] ArcVec VS Vec::new
