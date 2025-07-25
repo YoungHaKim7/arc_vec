@@ -109,11 +109,15 @@ Parallel sort took: 2.315417ms
 
 # Todo
 
-- [ ] sort, reverse
+- [x] sort fn
+- [ ] reverse fn
 - [ ] append string
 - [ ] benches
   - [ ] ArcVec VS Vec::new
   - [x] Parallel sort VS Basic Sort
+- [ ] Docs
+  - [ ] lib.rs_rayon내용추가
+  - [ ] concurrency VS parallelism 차이점
 
 ## License
 
