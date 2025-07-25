@@ -7,7 +7,7 @@ use std::hint::black_box;
 fn bench_sorts(c: &mut Criterion) {
     let mut group = c.benchmark_group("sort_compare");
 
-    for size in [1024, 4096, 16384].iter() {
+    for size in [1024, 16_384, 1_048_576].iter() {
         let mut data: Vec<i32> = (0..*size).collect();
         data.shuffle(&mut rand::thread_rng());
         let arc_vec: ArcVec<i32> = data.into_iter().collect();
