@@ -9,7 +9,7 @@ fn main() {
     sort_arc_vec.push(40);
     sort_arc_vec.push(100);
     sort_arc_vec.reverse();
-    println!("Standard reverse: {}", sort_arc_vec);
+    println!("Standard reverse: {sort_arc_vec}");
 
     // the parallel sort
     let parallel_sort_arc_vec = ArcVec::new();
@@ -20,8 +20,5 @@ fn main() {
     parallel_sort_arc_vec.push(100);
     parallel_sort_arc_vec.parallel_reverse();
 
-    println!(
-        "Parallel reverse test: {}",
-        parallel_sort_arc_vec
-    );
+    println!("Parallel reverse test: {parallel_sort_arc_vec}");
 }
