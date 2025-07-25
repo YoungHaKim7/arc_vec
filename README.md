@@ -71,11 +71,11 @@ fn main() {
 |-|-|-|
 |<img width=300px src="assets/benches/criterion/para_sort_final.png" />|vs|<img  width=300px src="assets/benches/criterion/sort_basic.png" />|
 |-|Estimate|-|
-|0.0000090|R²|0.0042089|
-|33.435 ms|Mean|48.817 ms|
-|481.04 µs|Std. Dev.|743.16 µs|
-|33.349 ms|Median|48.606 ms|
-|290.85 µs|MAD|338.29 µs|
+|0.0162498|R²|0.0025004|
+|17.870 ms|Mean|27.310 ms|
+|267.86 µs|Std. Dev.|176.25 µs|
+|17.818 ms|Median|27.226 ms|
+|299.22 µs|MAD|73.193 µs|
 
 - Understanding this report:
   - The plot on the left displays the average time per iteration for this benchmark. The shaded region shows the estimated probability of an iteration taking a certain amount of time, while the line shows the mean. Click on the plot for a larger view showing the outliers.
@@ -123,14 +123,18 @@ LLVM version: 20.1.5
 - [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 
 ```
-OS: Ubuntu 22.04.5 LTS x86_64
-Host: Windows Subsystem for Linux - Ubuntu
-Kernel: Linux 4.4.0-18362-Microsoft
+
+OS: Ubuntu 24.04.2 LTS x86_64
+Kernel: Linux 6.14.0-24-generic
 Shell: fish 3.7.1
-Terminal: xterm-256color
-CPU: Intel(R) Core(TM) i5-10500 (12) @ 3.10 GHz
-GPU: Mesa llvmpipe (LLVM 15.0.7, 256 bits)
-Memory: 6.99 GiB / 7.78 GiB (90%)
+DE: GNOME 46.0
+WM: Mutter (X11)
+Terminal: GNOME Terminal 3.52.0
+CPU: 13th Gen Intel(R) Core(TM) i5-136z
+GPU 1: NVIDIA GeForce RTX 3060 Ti Lite
+GPU 2: Intel UHD Graphics 770 @ 1.55 G
+Memory: 6.93 GiB / 94.09 GiB 
+
 ```
 
 # Todo
