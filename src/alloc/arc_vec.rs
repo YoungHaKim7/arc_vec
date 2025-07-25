@@ -188,6 +188,10 @@ impl<T> ArcVec<T> {
         let mut raw = self.data.lock().unwrap();
         let len = raw.len;
 
+        if len < 2 {
+            return;
+        }
+
         for i in 0..len / 2 {
             unsafe {
                 let a = raw.buf[i].as_mut_ptr();
