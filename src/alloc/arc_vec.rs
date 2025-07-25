@@ -184,23 +184,6 @@ impl<T> ArcVec<T> {
             raw.buf[i].write(val);
         }
     }
-
-    // pub fn reverse(&self) {
-    //     let mut raw = self.data.lock().unwrap();
-    //     let len = raw.len;
-
-    //     if len < 2 {
-    //         return;
-    //     }
-
-    //     for i in 0..len / 2 {
-    //         unsafe {
-    //             let a = raw.buf[i].as_mut_ptr();
-    //             let b = raw.buf[len - 1 - i].as_mut_ptr();
-    //             ptr::swap(a, b);
-    //         }
-    //     }
-    // }
 }
 
 impl<T: Ord + Send + Sync> ArcVec<T> {

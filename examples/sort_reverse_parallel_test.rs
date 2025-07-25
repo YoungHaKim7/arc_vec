@@ -9,13 +9,21 @@ fn generate_data(size: usize) -> ArcVec<i32> {
 
 fn main() {
     let my_arc_vec = generate_data(1_000);
+    println!("before ~~~~sort test(basic) : my_arc_vec: {my_arc_vec}");
+    println!("~~~~~start");
     my_arc_vec.sort();
-    println!("sort test(basic) : my_arc_vec: {my_arc_vec}");
+    println!("\nsort ~~~ result:\n");
+    println!("after ~~~~ sort test(basic) : my_arc_vec: {my_arc_vec}");
+    println!("end ~~~~~~~~~~");
     println!();
     println!();
     let my_arc_vec = generate_data(1_000);
+    println!("before ~~~~reverse test(basic) : my_arc_vec: {my_arc_vec}");
+    println!("~~~~~start");
     my_arc_vec.reverse();
+    println!("\nreverse ~~~ result:\n");
     println!("reverse test(basic) : my_arc_vec: {my_arc_vec}");
+    println!("end ~~~~~~~~~~");
 
     println!();
     println!();
