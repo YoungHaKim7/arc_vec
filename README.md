@@ -63,7 +63,7 @@ fn main() {
 ```
 
 # 성능 평가 benches
-- [criterion.rs](https://github.com/bheisler/criterion.rs)Statistics-driven benchmarking library for Rust 
+- [criterion.rs](https://github.com/bheisler/criterion.rs) - Statistics-driven benchmarking library for Rust 
 
 # `cargo bench`
 
