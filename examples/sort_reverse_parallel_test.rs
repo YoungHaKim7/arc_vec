@@ -11,6 +11,8 @@ fn main() {
     let my_arc_vec = generate_data(1_000);
     my_arc_vec.sort();
     println!("sort test(basic) : my_arc_vec: {my_arc_vec}");
+    println!();
+    println!();
     let my_arc_vec = generate_data(1_000);
     my_arc_vec.reverse();
     println!("reverse test(basic) : my_arc_vec: {my_arc_vec}");
@@ -22,7 +24,7 @@ fn main() {
 
     let v: ArcVec<i32> = (1..=1000).collect();
 
-    println!("Before reverse: {}", v);
+    println!("Before reverse: {v}");
     v.reverse();
-    println!("After reverse:  {}", v);
+    println!("After reverse:  {v}");
 }
