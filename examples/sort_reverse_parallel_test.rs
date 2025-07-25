@@ -14,4 +14,15 @@ fn main() {
     let my_arc_vec = generate_data(1_000);
     my_arc_vec.reverse();
     println!("reverse test(basic) : my_arc_vec: {my_arc_vec}");
+
+    println!();
+    println!();
+    println!();
+    println!();
+
+    let v: ArcVec<i32> = (1..=1000).collect();
+
+    println!("Before reverse: {}", v);
+    v.reverse();
+    println!("After reverse:  {}", v);
 }
