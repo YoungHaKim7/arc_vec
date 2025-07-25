@@ -5,7 +5,7 @@ use std::time::Instant;
 fn main() {
     let size = 1_000_000;
     let mut data: Vec<i32> = (0..size).collect();
-    data.shuffle(&mut rand::thread_rng());
+    data.shuffle(&mut rand::rng());
 
     let arc_vec: ArcVec<i32> = data.into_iter().collect();
 
@@ -21,7 +21,7 @@ fn main() {
     parallel_sort_arc_vec.parallel_sort();
     let duration_parallel_sort = start_parallel_sort.elapsed();
 
-    println!("Array size: {}", size);
-    println!("Standard sort took: {:?}", duration_sort);
-    println!("Parallel sort took: {:?}", duration_parallel_sort);
+    println!("Array size: {size}");
+    println!("Standard sort took: {duration_sort:?}");
+    println!("Parallel sort took: {duration_parallel_sort:?}");
 }

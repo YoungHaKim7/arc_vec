@@ -9,7 +9,7 @@ fn bench_sorts(c: &mut Criterion) {
 
     for size in [1024, 16_384, 1_048_576].iter() {
         let mut data: Vec<i32> = (0..*size).collect();
-        data.shuffle(&mut rand::thread_rng());
+        data.shuffle(&mut rand::rng());
         let arc_vec: ArcVec<i32> = data.into_iter().collect();
 
         group.bench_with_input(BenchmarkId::new("basic_sort", size), &arc_vec, |b, data| {
