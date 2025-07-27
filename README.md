@@ -149,6 +149,10 @@ Memory: 6.93 GiB / 94.09 GiB
   - [ ] lib.rs_rayon내용추가
   - [ ] concurrency VS parallelism 차이점
 
+## Similar project
+- [(rc-vec)RcVec](https://crates.io/crates/rc-vec) based on Rc and can be converted from Rc without allocation
+  - Repository[(github.com/A4-Tacks/rc-vec-rs)](https://github.com/A4-Tacks/rc-vec-rs)
+
 ## License
 
 This project is licensed under the [MIT license].
