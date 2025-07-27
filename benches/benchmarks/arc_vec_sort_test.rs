@@ -1,6 +1,6 @@
 use arc_vec::alloc::arc_vec::ArcVec;
-use criterion::{criterion_group, criterion_main, Criterion};
-use rand::{rng, seq::SliceRandom, Rng};
+use criterion::{Criterion, criterion_group, criterion_main};
+use rand::{Rng, rng, seq::SliceRandom};
 
 fn generate_data(size: usize) -> ArcVec<i32> {
     let mut vec: Vec<i32> = (0..size as i32).collect();
