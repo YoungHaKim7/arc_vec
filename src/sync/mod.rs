@@ -15,7 +15,6 @@ where
         let values: Vec<T> = (0..raw.len)
             .map(|i| unsafe { raw.buf[i].assume_init_ref().clone() })
             .collect();
-
         // Drop lock
         (values, len)
     };

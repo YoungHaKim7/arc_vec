@@ -6,5 +6,5 @@ fn arc_vec_new_string_test() {
     my_num_init.push_str("hello".to_string());
     my_num_init.push_str("world".to_string());
     my_num_init.push_str("test".to_string());
-    println!("my_string_init : {my_num_init} (string fn test)");
+    assert_eq!(format!("{my_num_init}"), "(hello, world, test)");
 }
