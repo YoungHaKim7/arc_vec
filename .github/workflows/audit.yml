@@ -1,4 +1,12 @@
 # https://crates.io/crates/cargo-audit
+name: Security audit
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * 1' # every monday at 10:00 UTC
+permissions:
+  issues: write
+  checks: write
 jobs:
   audit:
     runs-on: ubuntu-latest
