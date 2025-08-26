@@ -1,0 +1,8 @@
+# https://crates.io/crates/cargo-audit
+language: rust
+cache: cargo # cache cargo-audit once installed
+before_script:
+  - cargo install --force --locked cargo-audit
+  - cargo generate-lockfile
+script:
+  - cargo audit
